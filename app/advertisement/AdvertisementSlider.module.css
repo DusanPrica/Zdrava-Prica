@@ -1,0 +1,155 @@
+.sliderWrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.advertisementParagraph {
+  text-align: center;
+  color: black;
+  font-size: 48px;
+  font-weight: normal;
+}
+
+.advertisementTitle {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  align-items: center;
+  color: black;
+  margin: 80px;
+  padding: 0 150px;
+  letter-spacing: 2px;
+  position: relative;
+} 
+
+.arrowButton {
+  padding: 0 10px;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 60px;
+  transition: background 0.3s ease;
+}
+
+.arrowButton:hover {
+  background-color: #333;
+}
+
+.sliderContainer {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+  flex-grow: 1;
+}
+
+.sliderContainer::-webkit-scrollbar {
+  display: none; 
+}
+
+.videoWrapper {
+  flex: 0 0 calc(25% - 10px);
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.videoItem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalVideo {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 12px;
+}
+
+
+.closeModal {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 2rem;
+  color: #fff;
+  background: #111;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 1010;
+}
+
+@media (max-width: 1024px) {
+  .videoWrapper {
+    flex: 0 0 calc(33.33% - 10px);
+  }
+
+  .advertisementTitle { 
+    font-size: 18px; 
+    margin-bottom: 80px; 
+  }
+
+}
+
+@media (max-width: 768px) {
+  .videoWrapper {
+    flex: 0 0 calc(50% - 10px);
+  }
+  
+  .advertisementTitle { 
+    font-size: 16px; 
+    margin-bottom: 60px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .videoWrapper {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+
+  .advertisementTitle { 
+    font-size: 14px; 
+    margin-bottom: 40px; 
+  }
+}

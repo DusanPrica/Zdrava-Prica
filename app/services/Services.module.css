@@ -1,0 +1,71 @@
+.card {
+  background-color: #111;
+  color: white;
+  padding: 50px 20px;
+  border-radius: 15px;
+  width: 360px;
+  height: 400px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.triangle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.topRow, 
+.bottomRow {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.topRowSingle {
+  display: flex;
+  justify-content: center;
+}
+
+.circleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+.circleText {
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  max-width: 100px;
+}
+

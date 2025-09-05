@@ -1,0 +1,159 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #000;
+    padding: 20px;
+    color: #fff;
+}
+
+.formWrapper {
+    width: 50%;
+    background: #000;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+    font-family: inherit;
+}
+
+.title {
+    font-size: 70px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.leadText {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+.hrLine {
+    margin: 40px 0;
+    border: 1px solid #6b6b6b;
+}
+
+.contactForm label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.nameRow {
+    display: flex;
+    gap: 10px;
+}
+
+.dateInput {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #464545;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.textInput {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #464545;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.textareaInput {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #464545;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.selectInput {
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #464545;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.selectInput option {
+    background: #222;
+    color: #fff;
+}
+
+.submitBtn {
+    display: block;
+    width: auto;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #444;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 20px auto 0;
+    transition: background 0.3s ease;
+}
+
+.submitBtn:hover {
+    background-color: #666;
+}
+
+@media (max-width: 900px) {
+  .formWrapper {
+    width: 70%;
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 50px;
+  }
+
+  .leadText {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .formWrapper {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 35px;
+  }
+
+  .leadText {
+    font-size: 20px;
+  }
+
+  .nameRow {
+    flex-direction: column;
+  }
+}

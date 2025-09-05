@@ -1,0 +1,381 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  width: 100%; 
+  background-color: black;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.site_logo {
+  flex-shrink: 0;
+}
+
+.navigation {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navigation_links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.navigation_links a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 20px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.navigation_links a:hover {
+  color: #7c7c7c;
+}
+
+.navigation.open .navigation_links {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 15px;
+}
+
+.hero-video-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.hero-overlay h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.hero-overlay p {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+  backdrop-filter: blur(5px);
+  z-index: 1001;
+}
+
+.mobileMenu.open {
+  display: flex;
+  animation: slideDown 0.3s ease forwards;
+}
+
+.mobileMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobileMenu li {
+  margin: 10px 0;
+}
+
+.mobileMenu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.footer {
+  width: 100%;
+  background-color: #111;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; 
+  justify-items: center;
+  align-items: center;
+}
+
+.partnerLogo {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footerSocial {
+  width: 100%;
+  background-color: #111;
+  padding: 20px 0;
+  color: #fff;
+}
+
+.footerSocialInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerSocial .footerLeft {
+  flex: 1;
+}
+
+.footerSocial .footerCenter {
+  flex: 1;
+  text-align: center;
+}
+
+.footerSocial .footerRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
+}
+
+.footerSocial .footerRight img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.footerSocial .footerRight img:hover {
+  transform: scale(1.2);
+}
+
+.home-text-section,
+.advertisement-text-section {
+  text-align: center;
+  max-width: 1000px;
+  margin: 60px auto 40px auto;
+  padding: 0 20px;
+}
+
+.home-text-main,
+.advertisement-text-main {
+  font-size: 48px;
+  color: #111;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+.home-text-title,
+.home-text-description,
+.advertisement-text-description {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  align-items: center;
+  color: black;
+  padding: 0 20px;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.home-videos,
+.advertisement-videos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  padding: 0 20px;
+}
+
+.video-wrapper-homepage,
+.advertisement-video-wrapper {
+  width: 480px;
+  max-width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-wrapper-homepage iframe,
+.advertisement-video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .hero-overlay h1 {
+    font-size: 4rem;
+  }
+  .hero-overlay p {
+    font-size: 1.5rem;
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .home-text-main,
+  .advertisement-text-main {
+    font-size: 50px;
+  }
+
+  .home-text-description,
+  .advertisement-text-description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation_links {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  .hero-overlay h1 {
+    font-size: 3rem;
+  }
+  .hero-overlay p {
+    font-size: 1.2rem;
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  .home-videos,
+  .advertisement-videos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .footerSocial {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .footerSocialInner {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footerSocial 
+  .footerRight {
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .footerSocial 
+  .footerCenter {
+    text-align: center;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .hero-overlay h1 {
+    font-size: 2rem;
+  }
+  .hero-overlay p {
+    font-size: 1rem;
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .footerSocial {
+    text-align: center;
+  }
+
+  .home-text-main,
+  .advertisement-text-main {
+    font-size: 28px;
+  }
+
+  .home-text-description,
+  .advertisement-text-description {
+    font-size: 14px;
+  }
+}

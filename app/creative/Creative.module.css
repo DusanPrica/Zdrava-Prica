@@ -1,0 +1,205 @@
+body {
+  background-color:white;
+  margin: 0;
+}
+
+.sliderWrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  color: #fff;
+}
+
+.sliderParagraph {
+  text-align: center;
+  color: black;
+  font-size: 36px;
+  font-weight: normal;
+}
+
+.sliderTitle {
+  text-align: center;
+  margin-bottom: 100px;
+  font-size: 20px;
+  font-style: italic;
+  color: black;
+  font-weight: normal;
+}
+
+.sliderSubTitle {
+  text-align: center;
+  color: black;
+  font-size: 48px;
+  font-weight: normal;
+
+}
+
+.videoWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.videoContainer {
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoContainer iframe,
+.videoContainer video {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.videoPlayer {
+  border-radius: 12px;
+}
+
+.sideButton {
+  padding: 0 10px;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 60px;
+  transition: background 0.3s ease;
+}
+
+.sideButton:hover {
+  background-color: #333;
+}
+
+.imagesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50%;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.imageWrapper :global(img) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.imageWrapper:hover :global(img) {
+  transform: scale(1.05);
+}
+
+.lightboxOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightboxImage {
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.closeLightbox {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1010;
+}
+
+@media (max-width: 1200px) {
+  .sliderWrapper {
+    width: 95%;
+  }
+
+  .sliderParagraph { 
+    font-size: 42px; 
+  }
+  
+  .sliderTitle { 
+    font-size: 18px; 
+    margin-bottom: 80px; 
+  }
+}
+
+@media (max-width: 900px) {
+  .imagesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .videoWrapper {
+    gap: 10px;
+  }
+
+  .sliderParagraph { 
+    font-size: 36px; 
+  }
+  
+  .sliderTitle { 
+    font-size: 16px; 
+    margin-bottom: 60px; 
+  }
+
+  .sideButton {
+    height: 50px;
+    font-size: 13px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .imagesGrid {
+    grid-template-columns: 1fr;
+  }
+  .sliderParagraph { 
+    font-size: 28px; 
+  }
+
+  .sliderTitle { 
+    font-size: 14px; 
+    margin-bottom: 40px; 
+  }
+
+  .sideButton {
+    font-size: 1rem;
+    height: 40px;
+  }
+  
+  .videoContainer {
+    aspect-ratio: 16/9;
+  }
+}
