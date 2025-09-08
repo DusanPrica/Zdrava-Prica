@@ -10,14 +10,63 @@ export default function HomePage() {
     const video = videoRef.current;
     if (!video) return;
 
-    // restartuj video kad završi
     const handleEnded = () => {
       video.currentTime = 0;
-      video.play();
+      video.play().catch(error => {
+        console.log("Autoplay prevented:", error);
+      });
     };
 
-    video.addEventListener("ended", handleEnded);
-    return () => video.removeEventListener("ended", handleEnded);
+    const handleError = () => {
+      console.error("Video failed to load");
+      // You could add a fallback image or message here if needed
+    };
+
+    video.addEventListener('ended', handleEnded);
+    video.addEventListener('error', handleError);
+
+    // Try to play the video
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (error) {
+        console.log("Autoplay prevented, waiting for user interaction");
+        
+        // Add a fallback play button
+        const playButton = document.createElement('button');
+        playButton.textContent = 'Play Video';
+        playButton.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 12px 24px;
+          background: rgba(0, 0, 0, 0.7);
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          z-index: 3;
+          font-size: 16px;
+        `;
+        playButton.addEventListener('click', () => {
+          video.play();
+          playButton.remove();
+        });
+        
+        const container = document.querySelector('.hero-video-container');
+        if (container) {
+          container.appendChild(playButton);
+        }
+      }
+    };
+
+    playVideo();
+
+    return () => {
+      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('error', handleError);
+    };
   }, []);
 
   return (
@@ -29,11 +78,12 @@ export default function HomePage() {
           muted
           playsInline
           className="hero-video"
+          preload="auto"
           src="/videos/GreenScreen.mp4"
         >
-          Vaš browser ne podržava video. 
+          Your browser does not support the video tag.
           <a href="/videos/GreenScreen.mp4" target="_blank" rel="noopener noreferrer">
-            Kliknite ovde da pogledate video.
+            Click here to view the video.
           </a>
         </video>
 
@@ -51,10 +101,11 @@ export default function HomePage() {
         <div className="video-wrapper-homepage">
           <iframe 
             src="https://player.vimeo.com/video/1116684528" 
-            title="Video 1" 
+            title="Zdrava Priča Creative Studio Showreel" 
             frameBorder="0"  
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowFullScreen
+            loading="lazy"
           ></iframe>
         </div>
       </div>
@@ -63,5 +114,3 @@ export default function HomePage() {
     </>
   );
 }
-
-
