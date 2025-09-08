@@ -1,73 +1,83 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import FooterDefault from "./components/FooterDefault";
 
 export default function HomePage() {
   const videoRef = useRef(null);
+  const [videoError, setVideoError] = useState(false);
+  const [videoStatus, setVideoStatus] = useState("loading");
+  const [showPlayButton, setShowPlayButton] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    const handleLoad = () => {
+      setVideoStatus("loaded");
+      console.log("Video loaded successfully");
+    };
+
+    const handleError = (e) => {
+      console.error("Video error:", e);
+      setVideoError(true);
+      setVideoStatus("error");
+    };
+
     const handleEnded = () => {
       video.currentTime = 0;
       video.play().catch(error => {
         console.log("Autoplay prevented:", error);
+        setShowPlayButton(true);
       });
     };
 
-    const handleError = () => {
-      console.error("Video failed to load");
-      // You could add a fallback image or message here if needed
-    };
-
-    video.addEventListener('ended', handleEnded);
+    video.addEventListener('loadeddata', handleLoad);
     video.addEventListener('error', handleError);
+    video.addEventListener('ended', handleEnded);
 
     // Try to play the video
     const playVideo = async () => {
       try {
         await video.play();
+        setShowPlayButton(false);
       } catch (error) {
-        console.log("Autoplay prevented, waiting for user interaction");
-        
-        // Add a fallback play button
-        const playButton = document.createElement('button');
-        playButton.textContent = 'Play Video';
-        playButton.style.cssText = `
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          padding: 12px 24px;
-          background: rgba(0, 0, 0, 0.7);
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          z-index: 3;
-          font-size: 16px;
-        `;
-        playButton.addEventListener('click', () => {
-          video.play();
-          playButton.remove();
-        });
-        
-        const container = document.querySelector('.hero-video-container');
-        if (container) {
-          container.appendChild(playButton);
-        }
+        console.log("Autoplay prevented:", error);
+        setShowPlayButton(true);
       }
     };
 
     playVideo();
 
+    // Check if video source is accessible
+    fetch(video.src)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log("Video source is accessible");
+      })
+      .catch(error => {
+        console.error("Video source error:", error);
+        setVideoError(true);
+        setVideoStatus("error");
+      });
+
     return () => {
-      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('loadeddata', handleLoad);
       video.removeEventListener('error', handleError);
+      video.removeEventListener('ended', handleEnded);
     };
   }, []);
+
+  const handlePlayClick = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.play()
+        .then(() => setShowPlayButton(false))
+        .catch(error => console.error("Play failed:", error));
+    }
+  };
 
   return (
     <>
@@ -80,12 +90,48 @@ export default function HomePage() {
           className="hero-video"
           preload="auto"
           src="/videos/GreenScreen.mp4"
+          onError={() => setVideoError(true)}
         >
           Your browser does not support the video tag.
-          <a href="/videos/GreenScreen.mp4" target="_blank" rel="noopener noreferrer">
-            Click here to view the video.
-          </a>
         </video>
+
+        {showPlayButton && (
+          <button 
+            onClick={handlePlayClick}
+            className="play-button-bottom-right"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5V19L19 12L8 5Z" fill="white"/>
+            </svg>
+            Play Video
+          </button>
+        )}
+
+        {videoError && (
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "black",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white",
+            zIndex: 2
+          }}>
+            <div>
+              <p>Video failed to load</p>
+              <button 
+                onClick={() => window.location.reload()}
+                style={{padding: "10px 20px", marginTop: "10px"}}
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="hero-overlay">
           <h1>VFX | CGI</h1>
