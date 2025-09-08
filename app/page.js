@@ -12,7 +12,7 @@ export default function HomePage() {
           muted
           playsInline
           className="hero-video"
-          src="/videos/green-screen.mp4"
+          src="/videos/GreenScreen.mp4"
         ></video>
 
         <div className="hero-overlay">
