@@ -1,19 +1,41 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import FooterDefault from "./components/FooterDefault";
 
 export default function HomePage() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // restartuj video kad završi
+    const handleEnded = () => {
+      video.currentTime = 0;
+      video.play();
+    };
+
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
+  }, []);
+
   return (
     <>
       <div className="hero-video-container">
         <video
+          ref={videoRef}
           autoPlay
-          loop
           muted
           playsInline
           className="hero-video"
           src="/videos/GreenScreen.mp4"
-        ></video>
+        >
+          Vaš browser ne podržava video. 
+          <a href="/videos/GreenScreen.mp4" target="_blank" rel="noopener noreferrer">
+            Kliknite ovde da pogledate video.
+          </a>
+        </video>
 
         <div className="hero-overlay">
           <h1>VFX | CGI</h1>
@@ -23,7 +45,6 @@ export default function HomePage() {
 
       <div className="home-text-section">
         <h1 className="home-text-main">Zdrava Priča Creative Studio | Showreel</h1>
-       
       </div>
 
       <div className="home-videos">
