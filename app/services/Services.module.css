@@ -3,7 +3,7 @@
   color: white;
   padding: 50px 20px;
   border-radius: 15px;
-  width: 360px;
+  width: 300px;
   height: 400px;
   margin: 20px;
   text-align: center;
@@ -26,14 +26,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
 }
 
 .topRow, 
 .bottomRow {
   display: flex;
   justify-content: center;
-  gap: 60px;
+  gap: 50px;
 }
 
 .topRowSingle {
@@ -45,7 +45,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
 }
 
 .circle {

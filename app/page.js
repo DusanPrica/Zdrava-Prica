@@ -22,28 +22,16 @@ export default function HomePage() {
       </div>
 
       <div className="home-text-section">
-        <h1 className="home-text-main">We got you covered.</h1>
-        <p className="home-text-description">
-          We help our clients harness the power of CGI to build unforgettable viewing experiences. 
-          Our team will always be able to deliver advanced solutions, tailored for all types of commercials.
-        </p>
+        <h1 className="home-text-main">Zdrava Priča Creative Studio | Showreel</h1>
+       
       </div>
 
       <div className="home-videos">
         <div className="video-wrapper-homepage">
           <iframe 
-            src="https://www.youtube.com/embed/7PZWkDr2YDk" 
+            src="https://player.vimeo.com/video/1116684528" 
             title="Video 1" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullScreen
-          ></iframe>
-        </div>
-        <div className="video-wrapper-homepage">
-          <iframe 
-            src="https://www.youtube.com/embed/JuYbSgpzU3Y" 
-            title="Video 2" 
-            frameBorder="0" 
+            frameBorder="0"  
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowFullScreen
           ></iframe>

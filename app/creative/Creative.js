@@ -19,8 +19,8 @@ const slides = [
   },
 
   {
-    type: "youtube",
-    videoUrl: "https://www.youtube.com/embed/h7I-OE42q6Y",
+    type: "vimeo",
+    videoUrl: "https://player.vimeo.com/video/1116673111",
     images: [
       { src: "/images/slider-images/slider2/2.1.png" },
       { src: "/images/slider-images/slider2/2.2.png" },
@@ -82,6 +82,19 @@ const slides = [
       { src: "/images/slider-images/slider6/6.6.png" },
     ],
   },
+
+  {
+    type: "youtube",
+    videoUrl: "https://www.youtube.com/embed/BouMMIONhPs",
+    images: [
+      { src: "/images/slider-images/slider7/7.1.png" },
+      { src: "/images/slider-images/slider7/7.2.png" },
+      { src: "/images/slider-images/slider7/7.3.png" },
+      { src: "/images/slider-images/slider7/7.4.png" },
+      { src: "/images/slider-images/slider7/7.5.png" },
+      { src: "/images/slider-images/slider7/7.6.png" },
+    ],
+  },
 ];
 
 export default function Creative() {
@@ -106,16 +119,24 @@ export default function Creative() {
       <div className={styles.videoWrapper}>
         <button className={styles.sideButton} onClick={prevSlide}>&lt;</button>
 
-        <div className={styles.videoContainer}>
-          {currentSlide.type === "youtube" ? (
+      <div className={styles.videoContainer}>
+        {currentSlide.type === "youtube" ? (
+          <iframe
+            src={currentSlide.videoUrl}
+            title={`YouTube video ${currentIndex + 1}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : currentSlide.type === "vimeo" ? (
             <iframe
               src={currentSlide.videoUrl}
-              title={`Video ${currentIndex + 1}`}
+              title={`Vimeo video ${currentIndex + 1}`}
               frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
             />
-          ) : (
+        ) : (
             <video
               src={currentSlide.videoUrl}
               controls
@@ -124,8 +145,9 @@ export default function Creative() {
               muted
               className={styles.videoPlayer}
             />
-          )}
-        </div>
+        )}
+      </div>
+
 
         <button className={styles.sideButton} onClick={nextSlide}>&gt;</button>
       </div>

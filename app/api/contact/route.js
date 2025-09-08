@@ -9,14 +9,15 @@ export async function POST(req) {
       port: 465,
       secure: true,
       auth: {
-        user: "tvoj@email.com",
-        pass: "tvoja_lozinka",
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: `"Website Contact" <${data.email}>`,
-      to: "zdravapricastudio@gmail.com",
+      from: `"Zdrava Priča Website" <${process.env.GMAIL_USER}>`,
+      replyTo: data.email,
+      to: process.env.GMAIL_USER,
       subject: `New Contact Form Submission: ${data.services}`,
       text: `
         Name: ${data.first_name} ${data.last_name}
@@ -33,9 +34,13 @@ export async function POST(req) {
 
     await transporter.sendMail(mailOptions);
 
-    return new Response(JSON.stringify({ message: "Email sent successfully!" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Email sent successfully!" }), {
+      status: 200,
+    });
   } catch (error) {
     console.error("Email send error:", error);
-    return new Response(JSON.stringify({ message: "Failed to send email." }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Failed to send email." }), {
+      status: 500,
+    });
   }
 }

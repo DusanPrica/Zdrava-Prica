@@ -2,21 +2,21 @@ import Services from "./Services";
 
 export default function Home() {
   const circles1 = [
-    { label: "1", description: "Concept Development" },
-    { label: "2", description: "Project Planning" },
-    { label: "3", description: "Creative Consulting" },
+    { icon: "/images/services-images/Concept_Development.png", description: "Concept Development" },
+    { icon: "/images/services-images/Project_Planning.png", description: "Project Planning" },
+    { icon: "/images/services-images/Creative_Consulting.png", description: "Creative Consulting" },
   ];
 
   const circles2 = [
-    { label: "A", description: "Directing" },
-    { label: "B", description: "Cinematography" },
-    { label: "C", description: "Studio/Chroma Key Filming" },
+    { icon: "/images/services-images/Directing.png", description: "Directing" },
+    { icon: "/images/services-images/Cinematography.png", description: "Cinematography" },
+    { icon: "/images/services-images/Green_Screen_Filming.png", description: "Studio/Chroma Key Filming" },
   ];
 
   const circles3 = [
-    { label: "X", description: "Visual Effects" },
-    { label: "Y", description: "CGI" },
-    { label: "Z", description: "Video Editing & Color Grading" },
+    { icon: "/images/services-images/Visual_Effects.png", description: "Visual Effects" },
+    { icon: "/images/services-images/CGI.png", description: "CGI" },
+    { icon: "/images/services-images/Editing_Color.png", description: "Video Editing & Color Grading" },
   ];
 
   return (
@@ -44,12 +44,13 @@ export default function Home() {
 
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "40px",
-          flexWrap: "wrap"
-        }}
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "20px",
+        maxWidth: "1200px",
+        width: "100%",
+        flexWrap: "wrap"
+      }}
       >
         
         <Services title="Pre-Production" circles={circles1} />

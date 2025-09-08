@@ -99,6 +99,7 @@ export default function ContactForm() {
         </label>
 
         <button type="submit" className={styles.submitBtn}> Submit </button>
+
       </form>
     </div>
   );
