@@ -12,17 +12,17 @@ export default function HomePage() {
 
     const handleEnded = () => {
       video.currentTime = 0;
-      video.play();
+      video.play().catch(() => {});
     };
 
-    video.addEventListener('ended', handleEnded);
+    video.addEventListener("ended", handleEnded);
 
-    video.play().catch(error => {
+    video.play().catch((error) => {
       console.log("Autoplay prevented:", error);
     });
 
     return () => {
-      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener("ended", handleEnded);
     };
   }, []);
 
@@ -37,8 +37,9 @@ export default function HomePage() {
           loop
           className="hero-video"
           preload="auto"
-          src="/videos/green-screen-video.mp4"
         >
+          <source src="/videos/green-screen.mp4" type="video/mp4" />
+          <source src="/videos/green-screen.webm" type="video/webm" />
         </video>
 
         <div className="hero-overlay">
