@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "./Services.module.css";
 
-const ServicesPage = ({ title, circles, inverted }) => {
+const Services = ({ title, circles, inverted }) => {
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>{title}</h2>
@@ -66,4 +66,5 @@ const ServicesPage = ({ title, circles, inverted }) => {
   );
 };
 
-export default ServicesPage;
+export default Services;
+

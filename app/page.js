@@ -34,11 +34,11 @@ export default function HomePage() {
           autoPlay
           muted
           playsInline
+          loop
           className="hero-video"
           preload="auto"
           src="/videos/green-screen-video.mp4"
         >
-          Your browser does not support the video tag.
         </video>
 
         <div className="hero-overlay">

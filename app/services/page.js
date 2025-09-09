@@ -31,12 +31,13 @@ export default function Home() {
         gap: "50px"
       }}
     >
-      <h1
+      <h1 className="servicesTitle"
         style={{
           fontSize: "48px",
           fontWeight: "normal",
           color: "#111",
-          textAlign: "center"
+          textAlign: "center",
+          marginTop: "0",
         }}
       >
         Services
@@ -64,7 +65,6 @@ export default function Home() {
           textAlign: "center",
           fontSize: "16px",
           fontStyle: "italic",
-          letterSpacing: "2px",
           color: "#111",
         }}
       >

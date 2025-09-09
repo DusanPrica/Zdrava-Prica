@@ -176,9 +176,7 @@ export default function AdvertisementSlider() {
       </div>
 
       <div className="home-text-section">
-        <h2 className="home-text-title">
-          Capture attention, spark conversations and go viral with our advanced Fake Out Of Home (FOOH) marketing campaigns.
-        </h2>
+        
         <h1 className="home-text-main">We got you covered.</h1>
         <p className="home-text-description">
           We help our clients harness the power of CGI to build unforgettable

@@ -18,12 +18,13 @@ body {
 }
 
 .sliderTitle {
+  max-width: 1000px;
+  margin: 0 auto;
   text-align: center;
-  margin-bottom: 100px;
-  font-size: 18px;
-  font-style: italic;
-  color: black;
+  font-size: 16px;
   font-weight: normal;
+  font-style: italic;
+  color: black; 
 }
 
 .sliderSubTitle {

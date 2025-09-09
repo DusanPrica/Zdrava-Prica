@@ -26,11 +26,10 @@ body {
   flex-shrink: 0;
 }
 
-.navigation {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
+.desktopNavigation {
+  margin-left: auto;
 }
+
 
 .navigation_links {
   display: flex;
@@ -108,39 +107,48 @@ body {
 }
 
 .hamburger {
-  font-size: 40px;
+  display: none;
+  font-size: 2rem;
+  color: #fff;
   cursor: pointer;
-  position: relative;
+  user-select: none;
 }
 
 .mobileMenu {
   position: absolute;
-  top: 0;
-  left: 100%;
-  background-color: #111;
-  color: #fff;
-  padding: 10px 20px;
+  top: 30px;
+  right: 50px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 12px;
+  padding: 15px 20px;
   display: none;
-  white-space: nowrap;
-  z-index: 1000;
-  border-radius: 5px;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+  backdrop-filter: blur(5px);
+  z-index: 1001;
 }
 
 .mobileMenu.open {
-  display: block;
+  display: flex;
+  animation: slideDown 0.3s ease forwards;
 }
 
 .mobileMenu ul {
   list-style: none;
-  margin: 0;
   padding: 0;
-  display: flex;
-  gap: 15px;
+  margin: 0;
 }
 
-.mobileMenu ul li a {
+.mobileMenu li {
+  margin: 10px 0;
+}
+
+.mobileMenu li a {
   color: #fff;
   text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .footer {

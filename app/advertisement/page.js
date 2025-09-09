@@ -8,6 +8,10 @@ export default function AdvertisementPage() {
     <div>
       <p className={styles.advertisementParagraph}>Disrupt the scroll.</p>
 
+      <h2 className="home-text-title">
+          Capture attention, spark conversations and go viral with our advanced Fake Out Of Home (FOOH) marketing campaigns.
+        </h2>
+
       <AdvertisementSlider />
 
       <FooterDefault />

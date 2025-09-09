@@ -4,7 +4,6 @@
   padding: 50px 20px;
   border-radius: 15px;
   width: 300px;
-  height: 400px;
   margin: 20px;
   text-align: center;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
@@ -47,24 +46,31 @@
   align-items: center;
 }
 
-.circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: white;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-}
-
 .circleText {
   color: white;
   font-size: 14px;
   text-align: center;
   max-width: 100px;
+}
+
+@media (max-width: 1024px) {
+  .servicesTitle {
+    font-size: 32px;
+    margin: 40px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .servicesTitle {
+    font-size: 28px;
+    margin: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .servicesTitle {
+    font-size: 16px;
+    margin: 20px 0;
+  }
 }
 
