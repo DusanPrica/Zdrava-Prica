@@ -28,7 +28,6 @@ export default function AdvertisementSlider() {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
-  // Responsivni broj videa u view-u
   useEffect(() => {
     const updateVideosPerView = () => {
       if (window.innerWidth < 600) setVideosPerView(1);
@@ -40,17 +39,15 @@ export default function AdvertisementSlider() {
     return () => window.removeEventListener("resize", updateVideosPerView);
   }, []);
 
-  // Kada se promeni videosPerView, osiguraj validan currentIndex
   useEffect(() => {
     const maxIndex = Math.max(0, videos.length - videosPerView);
     setCurrentIndex((idx) => clamp(idx, 0, maxIndex));
   }, [videosPerView]);
 
-  // Uvek skroluj na currentIndex
   useEffect(() => {
     if (!sliderRef.current) return;
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
-    // koristimo smooth scroll za navigaciju dugmadi / indeksa
+    
     sliderRef.current.style.scrollBehavior = "smooth";
     sliderRef.current.scrollTo({
       left: videoWidth * currentIndex,
@@ -58,7 +55,6 @@ export default function AdvertisementSlider() {
     });
   }, [currentIndex, videosPerView]);
 
-  // --- Mouse (desktop) handlers ---
   const handleMouseDown = (e) => {
     if (!sliderRef.current) return;
     isDragging.current = true;
@@ -66,14 +62,13 @@ export default function AdvertisementSlider() {
     scrollLeft.current = sliderRef.current.scrollLeft;
     sliderRef.current.style.cursor = "grabbing";
     sliderRef.current.style.scrollBehavior = "auto";
-    // global listener za slučaj da pustiš miš van elementa
     window.addEventListener("mouseup", handleMouseUpWindow);
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging.current || !sliderRef.current) return;
     const x = e.pageX;
-    const walk = (x - startX.current) * 1; // faktor osetljivosti
+    const walk = (x - startX.current) * 1;
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
@@ -81,17 +76,15 @@ export default function AdvertisementSlider() {
     if (!sliderRef.current) return;
     isDragging.current = false;
     sliderRef.current.style.cursor = "grab";
-    // izračunamo novi indeks na osnovu pozicije skrola
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
     const rawIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
     const maxIndex = Math.max(0, videos.length - videosPerView);
     const bounded = clamp(rawIndex, 0, maxIndex);
     setCurrentIndex(bounded);
-    // ukloni global listener
+    
     window.removeEventListener("mouseup", handleMouseUpWindow);
   };
 
-  // global handler (izazvan ako korisnik otpusti miš van elementa)
   const handleMouseUpWindow = () => {
     if (isDragging.current) handleMouseUp();
   };
@@ -100,7 +93,6 @@ export default function AdvertisementSlider() {
     if (isDragging.current) handleMouseUp();
   };
 
-  // --- Touch (mobile) handlers ---
   const handleTouchStart = (e) => {
     if (!sliderRef.current) return;
     isDragging.current = true;
@@ -119,7 +111,7 @@ export default function AdvertisementSlider() {
   const handleTouchEnd = () => {
     if (!sliderRef.current) return;
     isDragging.current = false;
-    // zaokruži indeks
+  
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
     const rawIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
     const maxIndex = Math.max(0, videos.length - videosPerView);
@@ -128,18 +120,14 @@ export default function AdvertisementSlider() {
     sliderRef.current.style.scrollBehavior = "smooth";
   };
 
-  // --- Arrow navigation (uvek pomera po 1 video) ---
   const moveNext = () => {
-    const maxIndex = Math.max(0, videos.length - videosPerView);
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    setCurrentIndex(prev => (prev + 1 > videos.length - videosPerView ? 0 : prev + 1));
   };
 
   const movePrev = () => {
-    const maxIndex = Math.max(0, videos.length - videosPerView);
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    setCurrentIndex(prev => (prev - 1 < 0 ? videos.length - videosPerView : prev - 1));
   };
 
-  // Modal
   const openModal = (src) => setModalVideo(src);
   const closeModal = () => setModalVideo(null);
 
@@ -187,7 +175,6 @@ export default function AdvertisementSlider() {
         )}
       </div>
 
-      {/* --- DEO ISPOD SLAJDERA (EVO GA, NIKAD NEĆU ZABORAVITI) --- */}
       <div className="home-text-section">
         <h2 className="home-text-title">
           Capture attention, spark conversations and go viral with our advanced Fake Out Of Home (FOOH) marketing campaigns.
