@@ -343,7 +343,7 @@ body {
   }
 
   .hero-video-container {
-    height: 100vh;
+    height: 80vh;
   }
 
   .hero-overlay h1 {
@@ -395,6 +395,11 @@ body {
   .footerCenter {
     text-align: center;
     margin-top: 16px;
+  }
+
+  .splash-video {
+    width: 60px;
+    height: 60px;
   }
 
 }
