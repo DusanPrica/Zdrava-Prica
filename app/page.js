@@ -36,7 +36,7 @@ export default function HomePage() {
           playsInline
           className="hero-video"
           preload="auto"
-          src="/videos/GreenScreen.mp4"
+          src="/videos/green-screen-video.mp4"
         >
           Your browser does not support the video tag.
         </video>
