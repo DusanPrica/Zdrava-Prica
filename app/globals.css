@@ -261,6 +261,9 @@ body {
   flex-wrap: wrap;
   margin-bottom: 60px;
   padding: 0 20px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  max-width: 1000px;
 }
 
 .video-wrapper-homepage {
@@ -300,7 +303,7 @@ body {
 }
 
 .splash-video {
-  width: 300px;
+  width: 150px;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
