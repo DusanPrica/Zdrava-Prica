@@ -76,7 +76,7 @@ export default function HomePage() {
           </div>
 
           <div className="home-text-section">
-            <h1 className="home-text-main">Zdrava Priča Creative Studio | Showreel</h1>
+            <h1 className="home-text-main">2025 Showreel</h1>
           </div>
 
           <div className="home-videos">
