@@ -315,7 +315,13 @@ body {
   }
   .hamburger {
     display: block;
+    font-size: 40px;
   }
+
+  .site_logo img {
+    width: 40px;
+  }
+
   .hero-overlay h1 {
     font-size: 3rem;
   }
