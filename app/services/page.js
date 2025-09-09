@@ -1,6 +1,7 @@
-import Services from "./Services";
+import Services from "../service-page/ServicePage";
+import FooterDefaultResponsive from "../components/FooterDefaultResponsive";
 
-export default function Home() {
+export default function ServicesPage() {
   const circles1 = [
     { icon: "/images/services-images/Concept_Development.png", description: "Concept Development" },
     { icon: "/images/services-images/Project_Planning.png", description: "Project Planning" },
@@ -45,15 +46,14 @@ export default function Home() {
 
       <div
         style={{
-        display: "flex",
-        justifyContent: "space-between",
-        gap: "20px",
-        maxWidth: "1200px",
-        width: "100%",
-        flexWrap: "wrap"
-      }}
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+          maxWidth: "1200px",
+          width: "100%",
+          flexWrap: "wrap"
+        }}
       >
-        
         <Services title="Pre-Production" circles={circles1} />
         <Services title="Production" circles={circles2} inverted />
         <Services title="Post-Production" circles={circles3} />
@@ -68,13 +68,14 @@ export default function Home() {
           color: "#111",
         }}
       >
-      Zdrava Priča Creative Studio is a full-service video production company. We manage every stage of production, yet our true specialty lies in post-production, where our team enhances and refines every frame in order to ensure each project reaches its highest creative potential. 
-      <br/>
-      <br/>
-      From pre-production to production, we provide comprehensive support ensuring a seamless process from idea to final footage.
+        Zdrava Priča Creative Studio is a full-service video production company. We manage every stage of production, yet our true specialty lies in post-production, where our team enhances and refines every frame in order to ensure each project reaches its highest creative potential. 
+        <br/><br/>
+        From pre-production to production, we provide comprehensive support ensuring a seamless process from idea to final footage.
       </p>
 
-
+      <div style={{ width: "100%" }}>
+        <FooterDefaultResponsive />
+      </div>
     </div>
   );
 }

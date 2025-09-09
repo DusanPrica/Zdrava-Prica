@@ -367,9 +367,13 @@ body {
     margin-top: 10px;
   }
 
-  .footerSocial 
+  .footerSocial {
+    text-align: center;
+  }
+
   .footerCenter {
     text-align: center;
+    margin-top: 16px;
   }
 }
 

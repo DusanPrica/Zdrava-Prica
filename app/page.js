@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import FooterDefault from "./components/FooterDefault";
+import FooterDefaultResponsive from "./components/FooterDefaultResponsive";
 
 export default function HomePage() {
   const videoRef = useRef(null);
@@ -66,6 +67,9 @@ export default function HomePage() {
       </div>
 
       <FooterDefault />
+
+      <FooterDefaultResponsive />
+      
     </>
   );
 }

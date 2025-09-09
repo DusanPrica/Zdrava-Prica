@@ -1,5 +1,6 @@
 "use client";
 import FooterDefault from "../components/FooterDefault";
+import FooterDefaultResponsive from "../components/FooterDefaultResponsive";
 import AdvertisementSlider from "./AdvertisementSlider";
 import styles from "./AdvertisementSlider.module.css";
 
@@ -15,6 +16,8 @@ export default function AdvertisementPage() {
       <AdvertisementSlider />
 
       <FooterDefault />
+
+      <FooterDefaultResponsive />
     </div>
   );
 }

@@ -31,7 +31,7 @@ export default function Header() {
      
         <div className="site_logo">
           <Link href="/">
-            <Image src="/images/logo.png" alt="Company Logo" width={80} height={80} />
+            <Image src="/images/logo.png" alt="Company Logo" width={80} height={80} priority />
           </Link>
         </div>
 
