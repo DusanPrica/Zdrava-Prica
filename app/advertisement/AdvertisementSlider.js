@@ -19,10 +19,11 @@ export default function AdvertisementSlider() {
   const [modalVideo, setModalVideo] = useState(null);
   const sliderRef = useRef(null);
   const startX = useRef(0);
-  const isSwiping = useRef(false);
+  const scrollLeft = useRef(0);
+  const isDragging = useRef(false);
   const videosPerView = 4;
 
-  // Uvek skroluje na currentIndex
+  // Uvek centriraj na currentIndex
   useEffect(() => {
     if (!sliderRef.current) return;
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
@@ -32,36 +33,52 @@ export default function AdvertisementSlider() {
     });
   }, [currentIndex]);
 
-  // --- Swipe (touch) ---
+  // --- Mouse drag (desktop) ---
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.pageX;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+    sliderRef.current.style.cursor = "grabbing";
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    const x = e.pageX;
+    const walk = (x - startX.current) * 1.2;
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    sliderRef.current.style.cursor = "grab";
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging.current) handleMouseUp();
+  };
+
+  // --- Touch swipe (mobile) ---
   const handleTouchStart = (e) => {
-    isSwiping.current = true;
     startX.current = e.touches[0].clientX;
+    isDragging.current = true;
   };
 
   const handleTouchEnd = (e) => {
-    if (!isSwiping.current) return;
+    if (!isDragging.current) return;
     const endX = e.changedTouches[0].clientX;
     const diff = startX.current - endX;
-
-    if (diff > 50) {
-      moveNext();
-    } else if (diff < -50) {
-      movePrev();
-    }
-    isSwiping.current = false;
+    if (diff > 50) moveNext();
+    if (diff < -50) movePrev();
+    isDragging.current = false;
   };
 
   // --- Strelice ---
   const moveNext = () => {
-    setCurrentIndex((prev) =>
-      prev + 1 >= videos.length ? 0 : prev + 1
-    );
+    setCurrentIndex((prev) => (prev + 1 >= videos.length ? 0 : prev + 1));
   };
 
   const movePrev = () => {
-    setCurrentIndex((prev) =>
-      prev - 1 < 0 ? videos.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev - 1 < 0 ? videos.length - 1 : prev - 1));
   };
 
   const openModal = (src) => setModalVideo(src);
@@ -77,6 +94,10 @@ export default function AdvertisementSlider() {
         <div
           className={styles.sliderContainer}
           ref={sliderRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
