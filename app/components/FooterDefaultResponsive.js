@@ -16,7 +16,7 @@ export default function FooterDefaultResponsive() {
             align-items: center;
             width: 100%;
             padding: 15px 0;
-            background-color: #111;
+            background-color: black;
             color: #fff;
             font-size: 14px;
           }
