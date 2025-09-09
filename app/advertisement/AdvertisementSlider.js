@@ -14,80 +14,139 @@ const videos = [
   "/videos/advertisement/video9.mp4",
 ];
 
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(n, max));
+}
+
 export default function AdvertisementSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVideo, setModalVideo] = useState(null);
+  const [videosPerView, setVideosPerView] = useState(4);
+
   const sliderRef = useRef(null);
+  const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-  const isDragging = useRef(false);
-  const videosPerView = 4;
 
-  // Uvek centriraj na currentIndex
+  // Responsivni broj videa u view-u
+  useEffect(() => {
+    const updateVideosPerView = () => {
+      if (window.innerWidth < 600) setVideosPerView(1);
+      else if (window.innerWidth < 1024) setVideosPerView(2);
+      else setVideosPerView(4);
+    };
+    updateVideosPerView();
+    window.addEventListener("resize", updateVideosPerView);
+    return () => window.removeEventListener("resize", updateVideosPerView);
+  }, []);
+
+  // Kada se promeni videosPerView, osiguraj validan currentIndex
+  useEffect(() => {
+    const maxIndex = Math.max(0, videos.length - videosPerView);
+    setCurrentIndex((idx) => clamp(idx, 0, maxIndex));
+  }, [videosPerView]);
+
+  // Uvek skroluj na currentIndex
   useEffect(() => {
     if (!sliderRef.current) return;
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
+    // koristimo smooth scroll za navigaciju dugmadi / indeksa
+    sliderRef.current.style.scrollBehavior = "smooth";
     sliderRef.current.scrollTo({
       left: videoWidth * currentIndex,
       behavior: "smooth",
     });
-  }, [currentIndex]);
+  }, [currentIndex, videosPerView]);
 
-  // --- Mouse drag (desktop) ---
+  // --- Mouse (desktop) handlers ---
   const handleMouseDown = (e) => {
+    if (!sliderRef.current) return;
     isDragging.current = true;
     startX.current = e.pageX;
     scrollLeft.current = sliderRef.current.scrollLeft;
     sliderRef.current.style.cursor = "grabbing";
+    sliderRef.current.style.scrollBehavior = "auto";
+    // global listener za slučaj da pustiš miš van elementa
+    window.addEventListener("mouseup", handleMouseUpWindow);
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging.current) return;
+    if (!isDragging.current || !sliderRef.current) return;
     const x = e.pageX;
-    const walk = (x - startX.current) * 1.2;
+    const walk = (x - startX.current) * 1; // faktor osetljivosti
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
   const handleMouseUp = () => {
+    if (!sliderRef.current) return;
     isDragging.current = false;
     sliderRef.current.style.cursor = "grab";
+    // izračunamo novi indeks na osnovu pozicije skrola
+    const videoWidth = sliderRef.current.offsetWidth / videosPerView;
+    const rawIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
+    const maxIndex = Math.max(0, videos.length - videosPerView);
+    const bounded = clamp(rawIndex, 0, maxIndex);
+    setCurrentIndex(bounded);
+    // ukloni global listener
+    window.removeEventListener("mouseup", handleMouseUpWindow);
+  };
+
+  // global handler (izazvan ako korisnik otpusti miš van elementa)
+  const handleMouseUpWindow = () => {
+    if (isDragging.current) handleMouseUp();
   };
 
   const handleMouseLeave = () => {
     if (isDragging.current) handleMouseUp();
   };
 
-  // --- Touch swipe (mobile) ---
+  // --- Touch (mobile) handlers ---
   const handleTouchStart = (e) => {
-    startX.current = e.touches[0].clientX;
+    if (!sliderRef.current) return;
     isDragging.current = true;
+    startX.current = e.touches[0].clientX;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+    sliderRef.current.style.scrollBehavior = "auto";
   };
 
-  const handleTouchEnd = (e) => {
-    if (!isDragging.current) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX.current - endX;
-    if (diff > 50) moveNext();
-    if (diff < -50) movePrev();
+  const handleTouchMove = (e) => {
+    if (!isDragging.current || !sliderRef.current) return;
+    const x = e.touches[0].clientX;
+    const walk = (x - startX.current) * 1;
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleTouchEnd = () => {
+    if (!sliderRef.current) return;
     isDragging.current = false;
+    // zaokruži indeks
+    const videoWidth = sliderRef.current.offsetWidth / videosPerView;
+    const rawIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
+    const maxIndex = Math.max(0, videos.length - videosPerView);
+    const bounded = clamp(rawIndex, 0, maxIndex);
+    setCurrentIndex(bounded);
+    sliderRef.current.style.scrollBehavior = "smooth";
   };
 
-  // --- Strelice ---
+  // --- Arrow navigation (uvek pomera po 1 video) ---
   const moveNext = () => {
-    setCurrentIndex((prev) => (prev + 1 >= videos.length ? 0 : prev + 1));
+    const maxIndex = Math.max(0, videos.length - videosPerView);
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const movePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 < 0 ? videos.length - 1 : prev - 1));
+    const maxIndex = Math.max(0, videos.length - videosPerView);
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
+  // Modal
   const openModal = (src) => setModalVideo(src);
   const closeModal = () => setModalVideo(null);
 
   return (
     <>
       <div className={styles.sliderWrapper}>
-        <button className={styles.arrowButton} onClick={movePrev}>
+        <button className={styles.arrowButton} onClick={movePrev} aria-label="Previous">
           &lt;
         </button>
 
@@ -99,7 +158,9 @@ export default function AdvertisementSlider() {
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          style={{ cursor: "grab" }}
         >
           {videos.map((src, index) => (
             <div
@@ -107,47 +168,29 @@ export default function AdvertisementSlider() {
               className={styles.videoWrapper}
               onClick={() => openModal(src)}
             >
-              <video
-                src={src}
-                autoPlay
-                loop
-                muted
-                className={styles.videoItem}
-              />
+              <video src={src} autoPlay loop muted className={styles.videoItem} />
             </div>
           ))}
         </div>
 
-        <button className={styles.arrowButton} onClick={moveNext}>
+        <button className={styles.arrowButton} onClick={moveNext} aria-label="Next">
           &gt;
         </button>
 
         {modalVideo && (
           <div className={styles.modalOverlay} onClick={closeModal}>
-            <div
-              className={styles.modalContent}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className={styles.closeModal} onClick={closeModal}>
-                ×
-              </button>
-              <video
-                src={modalVideo}
-                autoPlay
-                loop
-                muted
-                controls
-                className={styles.modalVideo}
-              />
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <button className={styles.closeModal} onClick={closeModal}>×</button>
+              <video src={modalVideo} autoPlay loop muted controls className={styles.modalVideo} />
             </div>
           </div>
         )}
       </div>
 
+      {/* --- DEO ISPOD SLAJDERA (EVO GA, NIKAD NEĆU ZABORAVITI) --- */}
       <div className="home-text-section">
         <h2 className="home-text-title">
-          Capture attention, spark conversations and go viral with our advanced
-          Fake Out Of Home (FOOH) marketing campaigns.
+          Capture attention, spark conversations and go viral with our advanced Fake Out Of Home (FOOH) marketing campaigns.
         </h2>
         <h1 className="home-text-main">We got you covered.</h1>
         <p className="home-text-description">
