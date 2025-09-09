@@ -108,48 +108,39 @@ body {
 }
 
 .hamburger {
-  display: none;
-  font-size: 2rem;
-  color: #fff;
+  font-size: 40px;
   cursor: pointer;
-  user-select: none;
+  position: relative;
 }
 
 .mobileMenu {
   position: absolute;
-  top: 60px;
-  right: 10px;
-  background-color: rgba(0, 0, 0, 0.85);
-  border-radius: 12px;
-  padding: 15px 20px;
+  top: 0;
+  left: 100%;
+  background-color: #111;
+  color: #fff;
+  padding: 10px 20px;
   display: none;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 180px;
-  backdrop-filter: blur(5px);
-  z-index: 1001;
+  white-space: nowrap;
+  z-index: 1000;
+  border-radius: 5px;
 }
 
 .mobileMenu.open {
-  display: flex;
-  animation: slideDown 0.3s ease forwards;
+  display: block;
 }
 
 .mobileMenu ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
 }
 
-.mobileMenu li {
-  margin: 10px 0;
-}
-
-.mobileMenu li a {
+.mobileMenu ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
 }
 
 .footer {
