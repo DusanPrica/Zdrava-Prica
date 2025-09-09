@@ -27,6 +27,10 @@ export default function AdvertisementSlider() {
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+  const moved = useRef(false); 
+
+  const isIOS = typeof window !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     const updateVideosPerView = () => {
@@ -47,26 +51,26 @@ export default function AdvertisementSlider() {
   useEffect(() => {
     if (!sliderRef.current) return;
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
-    
-    sliderRef.current.style.scrollBehavior = "smooth";
+
     sliderRef.current.scrollTo({
       left: videoWidth * currentIndex,
-      behavior: "smooth",
+      behavior: isIOS ? "auto" : "smooth",
     });
-  }, [currentIndex, videosPerView]);
+  }, [currentIndex, videosPerView, isIOS]);
 
   const handleMouseDown = (e) => {
     if (!sliderRef.current) return;
     isDragging.current = true;
+    moved.current = false;
     startX.current = e.pageX;
     scrollLeft.current = sliderRef.current.scrollLeft;
     sliderRef.current.style.cursor = "grabbing";
-    sliderRef.current.style.scrollBehavior = "auto";
     window.addEventListener("mouseup", handleMouseUpWindow);
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging.current || !sliderRef.current) return;
+    moved.current = true; 
     const x = e.pageX;
     const walk = (x - startX.current) * 1;
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
@@ -81,7 +85,6 @@ export default function AdvertisementSlider() {
     const maxIndex = Math.max(0, videos.length - videosPerView);
     const bounded = clamp(rawIndex, 0, maxIndex);
     setCurrentIndex(bounded);
-    
     window.removeEventListener("mouseup", handleMouseUpWindow);
   };
 
@@ -96,13 +99,14 @@ export default function AdvertisementSlider() {
   const handleTouchStart = (e) => {
     if (!sliderRef.current) return;
     isDragging.current = true;
+    moved.current = false;
     startX.current = e.touches[0].clientX;
     scrollLeft.current = sliderRef.current.scrollLeft;
-    sliderRef.current.style.scrollBehavior = "auto";
   };
 
   const handleTouchMove = (e) => {
     if (!isDragging.current || !sliderRef.current) return;
+    moved.current = true;
     const x = e.touches[0].clientX;
     const walk = (x - startX.current) * 1;
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
@@ -111,13 +115,11 @@ export default function AdvertisementSlider() {
   const handleTouchEnd = () => {
     if (!sliderRef.current) return;
     isDragging.current = false;
-  
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
     const rawIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
     const maxIndex = Math.max(0, videos.length - videosPerView);
     const bounded = clamp(rawIndex, 0, maxIndex);
     setCurrentIndex(bounded);
-    sliderRef.current.style.scrollBehavior = "smooth";
   };
 
   const moveNext = () => {
@@ -130,6 +132,11 @@ export default function AdvertisementSlider() {
 
   const openModal = (src) => setModalVideo(src);
   const closeModal = () => setModalVideo(null);
+
+  const handleClick = (src) => {
+    if (moved.current) return;
+    openModal(src);
+  };
 
   return (
     <>
@@ -154,9 +161,16 @@ export default function AdvertisementSlider() {
             <div
               key={index}
               className={styles.videoWrapper}
-              onClick={() => openModal(src)}
+              onClick={() => handleClick(src)} 
             >
-              <video src={src} autoPlay loop muted className={styles.videoItem} />
+              <video
+                src={src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.videoItem}
+              />
             </div>
           ))}
         </div>
@@ -169,14 +183,13 @@ export default function AdvertisementSlider() {
           <div className={styles.modalOverlay} onClick={closeModal}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
               <button className={styles.closeModal} onClick={closeModal}>×</button>
-              <video src={modalVideo} autoPlay loop muted controls className={styles.modalVideo} />
+              <video src={modalVideo} autoPlay loop muted playsInline controls className={styles.modalVideo} />
             </div>
           </div>
         )}
       </div>
 
       <div className="home-text-section">
-        
         <h1 className="home-text-main">We got you covered.</h1>
         <p className="home-text-description">
           We help our clients harness the power of CGI to build unforgettable
@@ -208,3 +221,4 @@ export default function AdvertisementSlider() {
     </>
   );
 }
+
