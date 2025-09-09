@@ -18,11 +18,11 @@ export default function AdvertisementSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVideo, setModalVideo] = useState(null);
   const sliderRef = useRef(null);
-  const isDragging = useRef(false);
   const startX = useRef(0);
-  const scrollLeft = useRef(0);
+  const isSwiping = useRef(false);
   const videosPerView = 4;
 
+  // Uvek skroluje na currentIndex
   useEffect(() => {
     if (!sliderRef.current) return;
     const videoWidth = sliderRef.current.offsetWidth / videosPerView;
@@ -32,83 +32,36 @@ export default function AdvertisementSlider() {
     });
   }, [currentIndex]);
 
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    startX.current = e.pageX - sliderRef.current.offsetLeft;
-    scrollLeft.current = sliderRef.current.scrollLeft;
-    sliderRef.current.style.cursor = "grabbing";
-    sliderRef.current.style.scrollBehavior = "auto";
-  };
-  
-  const handleMouseMove = (e) => {
-    if (!isDragging.current) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-   
-    const walk = (x - startX.current) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-  
-  const handleMouseUp = () => {
-    isDragging.current = false;
-    sliderRef.current.style.cursor = "grab";
-    sliderRef.current.style.scrollBehavior = "smooth";
-    
-    const videoWidth = sliderRef.current.offsetWidth / videosPerView;
-    const newIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
-    
-    if (newIndex < 0) {
-      setCurrentIndex(videos.length - 1);
-    } else if (newIndex >= videos.length) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(newIndex);
-    }
-  };
-  
-  const handleMouseLeave = () => {
-    if (isDragging.current) {
-      handleMouseUp();
-    }
-  };
-
+  // --- Swipe (touch) ---
   const handleTouchStart = (e) => {
-    isDragging.current = true;
-    startX.current = e.touches[0].pageX - sliderRef.current.offsetLeft;
-    scrollLeft.current = sliderRef.current.scrollLeft;
-    sliderRef.current.style.scrollBehavior = "auto";
-  };
-  
-  const handleTouchMove = (e) => {
-    if (!isDragging.current) return;
-    const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
-   
-    const walk = (x - startX.current) * 1.2;
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-  
-  const handleTouchEnd = () => {
-    isDragging.current = false;
-    sliderRef.current.style.scrollBehavior = "smooth";
-    
-    const videoWidth = sliderRef.current.offsetWidth / videosPerView;
-    const newIndex = Math.round(sliderRef.current.scrollLeft / videoWidth);
-    
-    if (newIndex < 0) {
-      setCurrentIndex(videos.length - 1);
-    } else if (newIndex >= videos.length) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(newIndex);
-    }
+    isSwiping.current = true;
+    startX.current = e.touches[0].clientX;
   };
 
-  const moveNext = () => {
-    setCurrentIndex(prev => (prev + 1) % videos.length);
+  const handleTouchEnd = (e) => {
+    if (!isSwiping.current) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = startX.current - endX;
+
+    if (diff > 50) {
+      moveNext();
+    } else if (diff < -50) {
+      movePrev();
+    }
+    isSwiping.current = false;
   };
-  
+
+  // --- Strelice ---
+  const moveNext = () => {
+    setCurrentIndex((prev) =>
+      prev + 1 >= videos.length ? 0 : prev + 1
+    );
+  };
+
   const movePrev = () => {
-    setCurrentIndex(prev => (prev - 1 + videos.length) % videos.length);
+    setCurrentIndex((prev) =>
+      prev - 1 < 0 ? videos.length - 1 : prev - 1
+    );
   };
 
   const openModal = (src) => setModalVideo(src);
@@ -117,22 +70,14 @@ export default function AdvertisementSlider() {
   return (
     <>
       <div className={styles.sliderWrapper}>
-        <button 
-          className={styles.arrowButton} 
-          onClick={movePrev}
-        >
+        <button className={styles.arrowButton} onClick={movePrev}>
           &lt;
         </button>
 
         <div
           className={styles.sliderContainer}
           ref={sliderRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           {videos.map((src, index) => (
@@ -141,23 +86,38 @@ export default function AdvertisementSlider() {
               className={styles.videoWrapper}
               onClick={() => openModal(src)}
             >
-              <video src={src} autoPlay loop muted className={styles.videoItem} />
+              <video
+                src={src}
+                autoPlay
+                loop
+                muted
+                className={styles.videoItem}
+              />
             </div>
           ))}
         </div>
 
-        <button 
-          className={styles.arrowButton} 
-          onClick={moveNext}
-        >
+        <button className={styles.arrowButton} onClick={moveNext}>
           &gt;
         </button>
 
         {modalVideo && (
           <div className={styles.modalOverlay} onClick={closeModal}>
-            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-              <button className={styles.closeModal} onClick={closeModal}>×</button>
-              <video src={modalVideo} autoPlay loop muted controls className={styles.modalVideo} />
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className={styles.closeModal} onClick={closeModal}>
+                ×
+              </button>
+              <video
+                src={modalVideo}
+                autoPlay
+                loop
+                muted
+                controls
+                className={styles.modalVideo}
+              />
             </div>
           </div>
         )}
@@ -165,7 +125,8 @@ export default function AdvertisementSlider() {
 
       <div className="home-text-section">
         <h2 className="home-text-title">
-          Capture attention, spark conversations and go viral with our advanced Fake Out Of Home (FOOH) marketing campaigns.
+          Capture attention, spark conversations and go viral with our advanced
+          Fake Out Of Home (FOOH) marketing campaigns.
         </h2>
         <h1 className="home-text-main">We got you covered.</h1>
         <p className="home-text-description">
