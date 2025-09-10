@@ -9,7 +9,7 @@ export default function ServicesPage() {
   ];
 
   const circles2 = [
-    { icon: "/images/services-images/Directing.png", description: "Directing" },
+    { icon: "/images/services-images/Directing.png", description: "  Directing" },
     { icon: "/images/services-images/Cinematography.png", description: "Cinematography" },
     { icon: "/images/services-images/Green_Screen_Filming.png", description: "Studio/Chroma Key Filming" },
   ];
