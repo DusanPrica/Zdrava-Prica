@@ -1,6 +1,5 @@
 import Creative from "./Creative";
 import CopyrightFooter from "../components/FooterCopyright";
-import FooterDefaultResponsive from "../components/FooterDefaultResponsive";
 
 export default function CreativePage() {
   return (
@@ -8,7 +7,6 @@ export default function CreativePage() {
       <h1 style={{ textAlign: "center", marginTop: "40px", color: "#fff" }}></h1>
       <Creative />
       <CopyrightFooter />
-      <FooterDefaultResponsive />
     </div>
   );
 }

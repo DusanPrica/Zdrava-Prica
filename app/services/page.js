@@ -1,6 +1,5 @@
 import Services from "../service-page/ServicePage";
 import FooterCopyright from "../components/FooterCopyright"
-import FooterDefaultResponsive from "../components/FooterDefaultResponsive";
 
 export default function ServicesPage() {
   const circles1 = [
@@ -69,7 +68,6 @@ export default function ServicesPage() {
       </div>
       
       <FooterCopyright />
-      <FooterDefaultResponsive />
     </div>
   );
 }
