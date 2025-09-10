@@ -24,6 +24,7 @@ export default function ServicesPage() {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <div style={{
+        flex: 1,
         backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
