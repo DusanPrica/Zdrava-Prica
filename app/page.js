@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import FooterDefault from "./components/FooterDefault";
+import FooterCopyright from "./components/FooterCopyright"
 import FooterDefaultResponsive from "./components/FooterDefaultResponsive";
 
 export default function HomePage() {
@@ -92,7 +92,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <FooterDefault />
+          <FooterCopyright />
           <FooterDefaultResponsive />
         </>
       )}

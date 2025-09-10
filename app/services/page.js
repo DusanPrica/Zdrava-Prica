@@ -1,4 +1,5 @@
 import Services from "../service-page/ServicePage";
+import FooterCopyright from "../components/FooterCopyright"
 import FooterDefaultResponsive from "../components/FooterDefaultResponsive";
 
 export default function ServicesPage() {
@@ -65,7 +66,8 @@ export default function ServicesPage() {
           From pre-production to production, we provide comprehensive support ensuring a seamless process from idea to final footage.
         </p>
       </div>
-
+      
+      <FooterCopyright />
       <FooterDefaultResponsive />
     </div>
   );

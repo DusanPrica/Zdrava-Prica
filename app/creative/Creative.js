@@ -172,15 +172,18 @@ export default function Creative() {
 
       {lightboxImage && (
         <div className={styles.lightboxOverlay} onClick={closeLightbox}>
-          <button className={styles.closeLightbox} onClick={closeLightbox}>×</button>
-          <Image
-            src={lightboxImage}
-            alt="Enlarged"
-            fill
-            className={styles.lightboxImage}
-            onClick={(e) => e.stopPropagation()}
-          />
+          <div className={styles.lightboxContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeLightbox} onClick={closeLightbox}>×</button>
+            <Image
+              src={lightboxImage}
+              alt="Enlarged"
+              width={1200}
+              height={1000}
+              className={styles.lightboxImage}
+            />
+          </div>
         </div>
+
       )}
     </div>
   );

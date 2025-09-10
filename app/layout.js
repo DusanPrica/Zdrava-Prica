@@ -9,10 +9,10 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Zdrava Prica Website",
-  description: "Company portfolio site",
+  title: "Zdrava Prica",
+  description: "Professional Creative Studio From Serbia Specialized in Visual Effects Post-Production",
   icons: {
-    icon: "/images/logo_tab.png",
+    icon: "/icon.ico",
   },
 };
 
