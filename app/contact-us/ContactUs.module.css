@@ -110,7 +110,14 @@
     background: #464545;
     color: #fff;
     width: 100%;
+    min-width: 100%;
     box-sizing: border-box;
+
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
 }
 
 .selectInput option {
