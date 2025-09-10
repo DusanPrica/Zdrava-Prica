@@ -180,8 +180,8 @@
     content: "mm/dd/yyyy";
     color: #aaa;
     position: absolute;
-    left: 15px;
     pointer-events: none;
+    transform: translateY(-50%);
   }
 
   .dateInput::-webkit-calendar-picker-indicator {
