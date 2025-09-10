@@ -48,6 +48,9 @@
 }
 
 .dateInput {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #555;
@@ -65,6 +68,9 @@
 }
 
 .textInput {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #555;
@@ -77,6 +83,9 @@
 }
 
 .textareaInput {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #555;
@@ -90,7 +99,11 @@
 }
 
 .selectInput {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     padding: 10px;
+    margin-top: 5px;
     border: 1px solid #555;
     border-radius: 6px;
     font-size: 1rem;
@@ -98,7 +111,6 @@
     color: #fff;
     width: 100%;
     box-sizing: border-box;
-    position: relative;
 }
 
 .selectInput option {

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import FooterCopyright from "./components/FooterCopyright"
-import FooterDefaultResponsive from "./components/FooterDefaultResponsive";
 
 export default function HomePage() {
   const [showSplash, setShowSplash] = useState(false);
@@ -93,7 +92,6 @@ export default function HomePage() {
           </div>
 
           <FooterCopyright />
-          <FooterDefaultResponsive />
         </>
       )}
     </>
