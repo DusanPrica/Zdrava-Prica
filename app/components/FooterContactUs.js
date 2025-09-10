@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function FooterSocial() {
   const socialIcons = [
     { src: "/images/social-media/instagram.png", alt: "Instagram", link: "https://instagram.com/zdravaprica.studio" },
-    { src: "/images/social-media/venmo.png", alt: "Vimeo", link: "https://vimeo.com" },
+    { src: "/images/social-media/venmo.png", alt: "Vimeo", link: "https://vimeo.com/zdravapricastudio" },
     { src: "/images/social-media/linkedin.png", alt: "LinkedIn", link: "https://www.linkedin.com/company/108838306/admin/dashboard/" },
   ];
 
